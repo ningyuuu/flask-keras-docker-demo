@@ -34,12 +34,14 @@ def prepare_image(image, target):
 
     return image 
 
-@app.route('/predict', methods=["POST"])
+@app.route('/predict', methods=["GET", "POST"])
 def predict():
     # initialise the data dictionary that will be returned 
     # from the view
 
     data = {'success': False}
+    if flask.request.method == "GET":
+        return flask.jsonify(['Please post with file named "image"'])
 
     if flask.request.method == "POST":
         if flask.request.files.get('image'):
